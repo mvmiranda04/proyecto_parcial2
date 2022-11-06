@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block titulo %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="{% static 'css/estilos.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="contenedor">
+            <header>
+                <h2>Desarrollo de WebApp - Segundo Parcial de Programación 3</h2>
+            </header>
+            <nav class="menu">
+                <ul>
+                  <li class="{% if request.resolver_match.url_name == 'index' %}active{% endif %}"><a href="/">Index</a></li>
+                   {% if user.is_authenticated %}
+                    <li class="dropdown">
+                        <a href="javascript:void(0)" class="dropbtn">XXX</a>
+                        <div class="dropdown-content">
+                          <a href="">Listar</a>
+                          <a href="">Crear</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                </ul>
+                {% if user.is_authenticated %}
+                    <span class="usuario">{{ user.username }}&nbsp;&nbsp;<a href="{% url 'usuario:logout' %}">Cerrar Sesión</a>
+                    </span>
+                {% endif %}
+            </nav>
+            <section>
+                {% block contenido %}
+                {% endblock %}
+            </section>
+            <br>
+            <footer>
+                <p><strong>@Programación 3 - Ingenieria en Informatica - FTyCAps</strong></p>
+            </footer>
+        </div>
+    </body>
+</html>
